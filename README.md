@@ -1,36 +1,45 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Kazumi 规则转换工具
 
-## Getting Started
+将 `kazumi://` 协议链接中的 Base64 编码内容与 JSON 格式互相转换的在线工具，用于向 [Kazumi 规则仓库](https://github.com/Predidit/KazumiRules) 提交规则。
 
-First, run the development server:
+## 功能特性
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- 双向转换 — 支持 `kazumi://` → JSON 解码和 JSON → `kazumi://` 编码
+- 语法高亮 — JSON 输出支持高亮显示，便于阅读和校验
+- 一键复制 — 转换结果直接复制到剪贴板
+- 纯客户端 — 所有转换在浏览器内完成，无服务端、无数据上传
+- 暗色主题 — 专为深色模式设计的极简界面
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 使用方法
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### 解码（kazumi:// → JSON）
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+1. 选择 `kazumi:// → JSON` 模式
+2. 粘贴以 `kazumi://` 开头的编码字符串
+3. 点击「转换」，查看格式化后的 JSON 输出
 
-## Learn More
+### 编码（JSON → kazumi://）
 
-To learn more about Next.js, take a look at the following resources:
+1. 选择 `JSON → 编码` 模式
+2. 输入或粘贴 JSON 内容
+3. 点击「转换」，获取可提交的 `kazumi://` 链接
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 转换原理
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+解码流程：
 
-## Deploy on Vercel
+1. 去除 `kazumi://` 前缀，提取 Base64 字符串
+2. `atob()` 解码为二进制字符串
+3. `TextDecoder("utf-8")` 转换为 UTF-8 文本
+4. `JSON.parse()` 解析并格式化输出
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+编码流程：
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+1. `JSON.parse()` 验证并压缩 JSON
+2. `TextEncoder()` 转换为 UTF-8 字节
+3. `btoa()` 编码为 Base64
+4. 拼接 `kazumi://` 前缀输出
+
+# 许可证
+
+[MIT License](LICENSE)
