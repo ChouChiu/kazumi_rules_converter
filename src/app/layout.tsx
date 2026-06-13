@@ -1,12 +1,17 @@
 import type { Metadata } from "next";
-import { Geist_Mono } from "next/font/google";
-import { Toaster } from "sonner";
-import "./globals.css";
+import { Roboto, Roboto_Mono } from "next/font/google";
+import ThemeRegistry from "@/components/ThemeRegistry";
 
-const geistMono = Geist_Mono({
-	variable: "--font-geist-mono",
+const roboto = Roboto({
+	variable: "--font-roboto",
 	subsets: ["latin"],
-	weight: ["300", "400", "500", "600", "700"],
+	weight: ["300", "400", "500", "700"],
+});
+
+const robotoMono = Roboto_Mono({
+	variable: "--font-roboto-mono",
+	subsets: ["latin"],
+	weight: ["300", "400", "500", "700"],
 });
 
 export const metadata: Metadata = {
@@ -22,22 +27,11 @@ export default function RootLayout({
 	return (
 		<html
 			lang="zh-CN"
-			className={`${geistMono.variable} dark h-full antialiased`}
+			className={`${roboto.variable} ${robotoMono.variable}`}
+			suppressHydrationWarning
 		>
-			<body className="min-h-full flex flex-col">
-				{children}
-				<Toaster
-					richColors
-					position="top-center"
-					toastOptions={{
-						style: {
-							background: "oklch(0.13 0 0)",
-							border: "1px solid oklch(1 0 0 / 8%)",
-							color: "oklch(0.93 0 0)",
-							fontFamily: "var(--font-geist-mono)",
-						},
-					}}
-				/>
+			<body>
+				<ThemeRegistry>{children}</ThemeRegistry>
 			</body>
 		</html>
 	);
