@@ -8,7 +8,7 @@
 - 语法高亮 — JSON 输出支持高亮显示，便于阅读和校验
 - 一键复制 — 转换结果直接复制到剪贴板
 - 纯客户端 — 所有转换在浏览器内完成，无服务端、无数据上传
-- MD3 设计 — 基于 Material Design 3 的暗色界面，主题色取自 Kazumi 项目（`#4CAF50`）
+- MD3 设计 — 基于 Material Design 3 的暗色界面，主题色取自 [Kazumi](https://github.com/Predidit/Kazumi) 项目的[默认绿色](https://github.com/Predidit/Kazumi/blob/main/lib/app_widget.dart#L132)，即 `#4CAF50`
 
 ## 使用方法
 
